@@ -266,10 +266,22 @@ select:disabled {
 #whatsappShare {
     background: #1f7d4a;
     border-color: #1f7d4a;
+    transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
 }
 
 #whatsappShare:hover {
     filter: brightness(1.05);
+}
+
+#whatsappShare.copied {
+    background: #0b8b62;
+    border-color: #0b8b62;
+    transform: translateY(-1px);
+}
+
+#whatsappShare.failed {
+    background: #8d2f26;
+    border-color: #8d2f26;
 }
 
 @media (max-width: 640px) {

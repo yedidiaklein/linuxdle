@@ -312,6 +312,38 @@ $gamePayload = [
 				document.body.removeChild(helper);
 			};
 
+			const setDesktopShareButtonState = (state) => {
+				if (isMobileShare) {
+					return;
+				}
+
+				const defaultText = 'Share';
+				whatsappShare.classList.remove('copied', 'failed');
+				window.clearTimeout(setDesktopShareButtonState.timeoutId);
+
+				if (state === 'copied') {
+					whatsappShare.textContent = 'Copied!';
+					whatsappShare.classList.add('copied');
+					setDesktopShareButtonState.timeoutId = window.setTimeout(() => {
+						whatsappShare.classList.remove('copied');
+						whatsappShare.textContent = defaultText;
+					}, 1800);
+					return;
+				}
+
+				if (state === 'failed') {
+					whatsappShare.textContent = 'Copy failed';
+					whatsappShare.classList.add('failed');
+					setDesktopShareButtonState.timeoutId = window.setTimeout(() => {
+						whatsappShare.classList.remove('failed');
+						whatsappShare.textContent = defaultText;
+					}, 1800);
+					return;
+				}
+
+				whatsappShare.textContent = defaultText;
+			};
+
 			const finishGame = (won) => {
 				gameOver = true;
 				guessButton.disabled = true;
@@ -333,6 +365,7 @@ $gamePayload = [
 				const shareText = buildShareText(won);
 				whatsappShare.hidden = false;
 				whatsappShare.textContent = isMobileShare ? 'Share to WhatsApp' : 'Share';
+				whatsappShare.classList.remove('copied', 'failed');
 				whatsappShare.onclick = () => {
 					if (isMobileShare) {
 						const shareUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
@@ -341,8 +374,14 @@ $gamePayload = [
 					}
 
 					copyTextToClipboard(shareText)
-						.then(() => showToast('Result copied to clipboard.'))
-						.catch(() => showToast('Could not copy result.'));
+						.then(() => {
+							setDesktopShareButtonState('copied');
+							showToast('Result copied to clipboard.');
+						})
+						.catch(() => {
+							setDesktopShareButtonState('failed');
+							showToast('Could not copy result.');
+						});
 				};
 			};
 
