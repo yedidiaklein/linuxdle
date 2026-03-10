@@ -350,6 +350,17 @@ $gamePayload = [
 			});
 		</script>
 	<?php endif; ?>
+	<footer class="site-footer">
+		<p>
+			Linuxdle, Best wordle like game for Linux nerds.<br>
+			By Yedidia Klein.<br>
+		</p>
+		<form action="https://www.paypal.com/donate" method="post" target="_top">
+			<input type="hidden" name="hosted_button_id" value="22GAJNW22SC4Y">
+			<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button">
+			<img alt="" border="0" src="https://www.paypal.com/en_IL/i/scr/pixel.gif" width="1" height="1">
+		</form>
+	</footer>
 </main>
 </body>
 </html>
