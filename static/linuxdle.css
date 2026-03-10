@@ -1,0 +1,281 @@
+:root {
+    --bg-1: #f7f6f2;
+    --bg-2: #dfe9e3;
+    --ink: #1e2523;
+    --panel: #ffffffd9;
+    --border: #9aaba1;
+    --accent: #2f7a5b;
+    --absent: #7b8680;
+    --present: #c99825;
+    --correct: #2f9e62;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(1200px circle at -10% -20%, #fff7dc 0%, transparent 50%),
+        radial-gradient(1000px circle at 110% 120%, #d3ece1 0%, transparent 48%),
+        linear-gradient(145deg, var(--bg-1), var(--bg-2));
+    color: var(--ink);
+    font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+.page-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 1rem 3rem;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 1.25rem;
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: 0.04em;
+}
+
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.2rem;
+}
+
+.subtitle {
+    margin-top: 0.4rem;
+    color: #37403c;
+}
+
+.panel {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--panel);
+    backdrop-filter: blur(2px);
+    padding: 1rem;
+    box-shadow: 0 16px 32px #22322b1c;
+}
+
+.error-panel {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.game-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tiny-label {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.75rem;
+    color: #596760;
+}
+
+.value {
+    margin: 0.25rem 0 0;
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.toast {
+    min-height: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: #8d2f26;
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 180ms ease;
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+.grid {
+    display: grid;
+    gap: 0.38rem;
+    width: min(100%, 540px);
+    margin: 0 auto 1rem;
+}
+
+.tile {
+    aspect-ratio: 1 / 1;
+    border: 2px solid #b8c6bf;
+    border-radius: 8px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: clamp(1rem, 2.6vw, 1.35rem);
+    text-transform: uppercase;
+}
+
+.tile.absent {
+    background: var(--absent);
+    border-color: var(--absent);
+    color: #fff;
+}
+
+.tile.present {
+    background: var(--present);
+    border-color: var(--present);
+    color: #fff;
+}
+
+.tile.correct {
+    background: var(--correct);
+    border-color: var(--correct);
+    color: #fff;
+}
+
+.guess-form {
+    max-width: 640px;
+    margin: 0 auto 1rem;
+}
+
+.guess-form label {
+    display: block;
+    margin-bottom: 0.45rem;
+    font-weight: 700;
+}
+
+.guess-controls {
+    display: flex;
+    gap: 0.6rem;
+}
+
+select,
+button {
+    border-radius: 10px;
+    border: 1px solid #94a79d;
+    font-size: 1rem;
+    padding: 0.7rem 0.8rem;
+}
+
+select {
+    flex: 1;
+    background: #fff;
+}
+
+button {
+    background: #143b2b;
+    color: #fff;
+    min-width: 112px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+button:disabled,
+select:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.keyboard {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    gap: 0.35rem;
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.key {
+    border-radius: 8px;
+    border: 1px solid #adb9b3;
+    background: #e8eeeb;
+    text-align: center;
+    padding: 0.45rem 0.2rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+}
+
+.key.absent {
+    background: var(--absent);
+    color: #fff;
+    border-color: var(--absent);
+}
+
+.key.present {
+    background: var(--present);
+    color: #fff;
+    border-color: var(--present);
+}
+
+.key.correct {
+    background: var(--correct);
+    color: #fff;
+    border-color: var(--correct);
+}
+
+.result-card {
+    margin: 1.25rem auto 0;
+    max-width: 480px;
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid #bfd0c6;
+}
+
+.result-card h2 {
+    margin-top: 0;
+}
+
+.distro {
+    width: 100%;
+    max-width: 180px;
+    max-height: 180px;
+    object-fit: contain;
+}
+
+.result-card a {
+    color: #124f39;
+    font-weight: 700;
+}
+
+.result-actions {
+    margin-top: 0.65rem;
+}
+
+#whatsappShare {
+    background: #1f7d4a;
+    border-color: #1f7d4a;
+}
+
+#whatsappShare:hover {
+    filter: brightness(1.05);
+}
+
+@media (max-width: 640px) {
+    .page-wrap {
+        padding: 1.2rem 0.7rem 2rem;
+    }
+
+    .game-top {
+        flex-direction: column;
+        gap: 0.7rem;
+    }
+
+    .guess-controls {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .keyboard {
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+}
