@@ -150,6 +150,12 @@ $gamePayload = [
 			const resultImage = document.getElementById('resultImage');
 			const resultLink = document.getElementById('resultLink');
 			const whatsappShare = document.getElementById('whatsappShare');
+			const isMobileShare = (() => {
+				if (navigator.userAgentData && typeof navigator.userAgentData.mobile === 'boolean') {
+					return navigator.userAgentData.mobile;
+				}
+				return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+			})();
 
 			const showToast = (message) => {
 				toastEl.textContent = message;
@@ -289,6 +295,23 @@ $gamePayload = [
 				return shareLines.join('\n');
 			};
 
+			const copyTextToClipboard = async (text) => {
+				if (navigator.clipboard && window.isSecureContext) {
+					await navigator.clipboard.writeText(text);
+					return;
+				}
+
+				const helper = document.createElement('textarea');
+				helper.value = text;
+				helper.setAttribute('readonly', 'readonly');
+				helper.style.position = 'absolute';
+				helper.style.left = '-9999px';
+				document.body.appendChild(helper);
+				helper.select();
+				document.execCommand('copy');
+				document.body.removeChild(helper);
+			};
+
 			const finishGame = (won) => {
 				gameOver = true;
 				guessButton.disabled = true;
@@ -309,9 +332,17 @@ $gamePayload = [
 
 				const shareText = buildShareText(won);
 				whatsappShare.hidden = false;
+				whatsappShare.textContent = isMobileShare ? 'Share to WhatsApp' : 'Share';
 				whatsappShare.onclick = () => {
-					const shareUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
-					window.open(shareUrl, '_blank', 'noopener');
+					if (isMobileShare) {
+						const shareUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+						window.open(shareUrl, '_blank', 'noopener');
+						return;
+					}
+
+					copyTextToClipboard(shareText)
+						.then(() => showToast('Result copied to clipboard.'))
+						.catch(() => showToast('Could not copy result.'));
 				};
 			};
 
