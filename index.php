@@ -3,11 +3,14 @@ declare(strict_types=1);
 
 date_default_timezone_set('UTC');
 
-$dbHost = getenv('LINUXDLE_DB_HOST') ?: 'localhost';
-$dbUser = getenv('LINUXDLE_DB_USER') ?: 'linuxdle';
-$dbPass = getenv('LINUXDLE_DB_PASS') ?: 'linuxdle';
-$dbName = getenv('LINUXDLE_DB_NAME') ?: 'linuxdle';
-$dbPort = (int) (getenv('LINUXDLE_DB_PORT') ?: 3306);
+$config = require __DIR__ . '/config.php';
+$dbConfig = $config['db'] ?? [];
+
+$dbHost = (string) ($dbConfig['host'] ?? 'localhost');
+$dbUser = (string) ($dbConfig['user'] ?? 'linuxdle');
+$dbPass = (string) ($dbConfig['pass'] ?? 'linuxdle');
+$dbName = (string) ($dbConfig['name'] ?? 'linuxdle');
+$dbPort = (int) ($dbConfig['port'] ?? 3306);
 
 $error = null;
 $distros = [];
